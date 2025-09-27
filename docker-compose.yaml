@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # Selenium Hub
+  selenium-hub:
+    image: selenium/hub:4.35.0
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+      - "4442:4442"
+      - "4443:4443"
+    environment:
+      - SE_BIND_HOST=false
+      - GRID_MAX_SESSION=10
+      - GRID_TIMEOUT=300
+    networks:
+      - selenium-grid
+
+  # Chrome Node
+  chrome:
+    image: selenium/node-chrome:4.35.0
+    container_name: selenium-node-chrome
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_GRID_URL=http://selenium-hub:4444
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - selenium-grid
+
+  # Firefox Node
+  firefox:
+    image: selenium/node-firefox:4.35.0
+    container_name: selenium-node-firefox
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_GRID_URL=http://selenium-hub:4444
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - selenium-grid
+
+  # Edge Node
+  edge:
+    image: selenium/node-edge:4.35.0
+    container_name: selenium-node-edge
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_GRID_URL=http://selenium-hub:4444
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - selenium-grid
+
+networks:
+  selenium-grid:
+    driver: bridge

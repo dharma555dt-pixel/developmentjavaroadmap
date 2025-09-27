@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+
+    <!-- Report Title -->
+    <configuration>
+        <reportName>Hackathon Automation Test Report</reportName>
+        <documentTitle>Hackathon Extent Reports - Test Execution</documentTitle>
+
+        <!-- Theme: STANDARD or DARK -->
+        <theme>DARK</theme>
+
+        <!-- Chart Config -->
+        <protocol>HTTPS</protocol>
+        <timelineEnabled>true</timelineEnabled>
+        <encoding>UTF-8</encoding>
+
+        <!-- Chart Visibility -->
+        <enableCategoryView>true</enableCategoryView>
+        <enableExceptionView>true</enableExceptionView>
+        <enableAuthorView>true</enableAuthorView>
+        <enableDeviceView>true</enableDeviceView>
+        <enableTestView>true</enableTestView>
+
+        <!-- Custom CSS -->
+        <styles>
+            <![CDATA[
+        .report-name { font-size: 22px; font-weight: bold; color: #00bcd4; }
+        .test-status.pass { background-color: #2ecc71; }
+        .test-status.fail { background-color: #e74c3c; }
+        .test-status.skip { background-color: #f39c12; }
+      ]]>
+        </styles>
+
+        <!-- Custom JavaScript (Optional) -->
+        <scripts>
+            <![CDATA[
+        console.log("Extent Report Loaded Successfully!");
+      ]]>
+        </scripts>
+
+    </configuration>
+</extentreports>
